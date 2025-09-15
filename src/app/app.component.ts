@@ -1,20 +1,22 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './shared/header/header.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { BreadcrumbsComponent } from './shared/breadcrumbs/breadcrumbs.component';
-import { AppRoutingModule } from './app-routing.module';
+
+import { PagesModule } from './pages/pages.module';
+import { AuthModule } from './auth/auth.module';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
-    HeaderComponent,
-    SidebarComponent,
-    BreadcrumbsComponent,
-  ],
+    // HeaderComponent,
+    // SidebarComponent,
+    // BreadcrumbsComponent,
 
+    // solo lo coloque para usar modulos , pero no es necesario
+    PagesModule,
+    AuthModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

@@ -6,11 +6,13 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-pages',
   standalone: true,
+  // puedo importar modulos
   imports: [
     RouterOutlet,
-    BreadcrumbsComponent,
+
     HeaderComponent,
     SidebarComponent,
+    BreadcrumbsComponent,
   ],
   templateUrl: './pages.component.html',
   styles: ``,
