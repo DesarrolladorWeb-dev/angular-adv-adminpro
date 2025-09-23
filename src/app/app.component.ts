@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
@@ -14,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
     // BreadcrumbsComponent,
 
     // solo lo coloque para usar modulos , pero no es necesario
+    FormsModule,
     PagesModule,
     AuthModule,
   ],
