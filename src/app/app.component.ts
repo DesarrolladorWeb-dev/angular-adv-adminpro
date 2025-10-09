@@ -10,14 +10,14 @@ import { AuthModule } from './auth/auth.module';
   standalone: true,
   imports: [
     RouterOutlet,
+
     // HeaderComponent,
     // SidebarComponent,
     // BreadcrumbsComponent,
-
     // solo lo coloque para usar modulos , pero no es necesario
-    FormsModule,
-    PagesModule,
-    AuthModule,
+    // FormsModule,
+    // PagesModule,
+    // AuthModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
