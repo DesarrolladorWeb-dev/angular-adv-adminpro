@@ -8,12 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styles: ``,
 })
 export class PromesasComponent implements OnInit {
-  constructor() {}
-
   ngOnInit(): void {
     this.getUsuarios().then((usuario) => {
       console.log(usuario);
     });
+
     // es secuencial
     //   const promesa = new Promise((resolve, reject) => {
     //     if (false) {
@@ -31,12 +30,26 @@ export class PromesasComponent implements OnInit {
     //     .catch((error) => console.log('Error en mi promesa'));
     //   console.log('fin del init');
   }
+  // usuarios: any[] = [];
+  // async ngOnInit(): Promise<void> {
+  //   try {
+  //     const usuarios = await this.getUsuarios();
+  //     this.usuarios = usuarios;
+  //     console.log(this.usuarios);
+  //   } catch (error) {
+  //     console.error('Error al obtener usuarios:', error);
+  //   }
+  // }
 
-  getUsuarios() {
-    return new Promise((resolve) => {
-      fetch('https://reqres.in/api/users')
-        .then((resp) => resp.json())
-        .then((body) => resolve(body.data));
-    });
+  getUsuarios(): Promise<any[]> {
+    return fetch('https://jsonplaceholder.typicode.com/users').then((resp) =>
+      resp.json()
+    );
+    // return new Promise((resolve, reject) => {
+    //   fetch('https://jsonplaceholder.typicode.com/users')
+    //     .then((resp) => resp.json())
+    //     .then((body) => resolve(body.data))
+    //     .catch((error) => reject(error));
+    // });
   }
 }

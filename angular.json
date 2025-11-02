@@ -3,6 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "fileReplacements": [
+  {
+    "replace": "src/environments/environment.ts",
+    "with": "src/environments/environment.prod.ts"
+  }
+],
+
     "adminpro": {
       "projectType": "application",
       "schematics": {},

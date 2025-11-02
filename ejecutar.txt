@@ -1,0 +1,4 @@
+ng serve -o
+
+nota se creo a mano la carpeta environments y sus archivos
+
