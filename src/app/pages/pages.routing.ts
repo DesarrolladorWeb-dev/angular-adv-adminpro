@@ -12,6 +12,7 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 
 import { UsuarioService } from '../services/usuario.service';
+import { PerfilComponent } from './perfil/perfil.component';
 
 // const authGuard = new AuthGuard();
 
@@ -47,6 +48,12 @@ export const pagesRoutes: Routes = [
         data: { titulo: 'Promesas' },
       },
       { path: 'rxjs', component: RxjsComponent, data: { titulo: 'Rxjs' } },
+
+      {
+        path: 'perfil',
+        component: PerfilComponent,
+        data: { titulo: 'Perfil de Usuario' },
+      },
     ],
   },
 ];

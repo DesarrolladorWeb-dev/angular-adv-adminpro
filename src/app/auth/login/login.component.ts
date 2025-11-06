@@ -18,12 +18,10 @@ declare const google: any;
   styleUrl: './login.component.css',
   styles: ``,
 })
-export class LoginComponent implements OnInit {
-  ngOnInit(): void {
-    // Hacer la función handleCredentialResponse disponible globalmente
-    (window as any).handleCredentialResponse = (response: any) =>
-      this.handleCredentialResponse(response);
-  }
+export class LoginComponent {
+  // ngOnInit(): void {
+
+  // }
 
   public formSubmitted = false;
 
@@ -41,6 +39,10 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private usuarioService: UsuarioService
   ) {
+    // Hacer la función handleCredentialResponse disponible globalmente
+    (window as any).handleCredentialResponse = (response: any) =>
+      this.handleCredentialResponse(response);
+
     if (this.usuarioService.recarga === 2) {
       window.location.reload();
       console.log(this.usuarioService.recarga);
