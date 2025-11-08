@@ -4,8 +4,10 @@ import { Injectable, NgZone } from '@angular/core';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 
+import { CargarUsuario } from '../Interfaces/cargar-usuarios.interfaces';
 import { RegisterForm } from '../Interfaces/register-form.interface';
 import { LoginForm } from '../Interfaces/login-form.interface';
+
 import { Usuario } from '../models/usuario.model';
 
 // declare const google: any;
@@ -28,6 +30,13 @@ export class UsuarioService {
     return this.usuario?.uid || '';
   }
 
+  get headers() {
+    return {
+      headers: {
+        'x-token': this.token,
+      },
+    };
+  }
   logout() {
     localStorage.removeItem('token');
     // ngZone : esto es lo unico que quiero que se ejecute
@@ -86,11 +95,12 @@ export class UsuarioService {
       ...data,
       role: this.usuario?.role,
     };
-    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
-      headers: {
-        'x-token': this.token,
-      },
-    });
+
+    return this.http.put(
+      `${base_url}/usuarios/${this.uid}`,
+      data,
+      this.headers
+    );
   }
 
   login(formData: LoginForm) {
@@ -116,6 +126,46 @@ export class UsuarioService {
       tap((resp: any) => {
         localStorage.setItem('token', resp.token);
       })
+    );
+  }
+
+  cargarUsuarios(desde: number = 0) {
+    const url = `${base_url}/usuarios?desde=${desde}`;
+    return this.http.get<CargarUsuario>(url, this.headers).pipe(
+      // delay(5000), //que espere 5s para el cargador
+      map((resp) => {
+        // inicializamos la clase Usuario , usamos el map para que nos de otro arreglo
+        const usuarios = resp.usuarios.map(
+          (user) =>
+            new Usuario(
+              user.nombre,
+              user.email,
+              '',
+              user.img,
+              user.google,
+              user.role,
+              user.uid
+            )
+        );
+        return {
+          total: resp.total,
+          usuarios,
+        };
+      })
+    );
+  }
+
+  eliminarUsuario(usuario: Usuario) {
+    const url = `${base_url}/usuarios/${usuario.uid}`;
+    return this.http.delete(url, this.headers);
+  }
+
+  guardarUsuario(usuario: Usuario) {
+    // para actualizar el ROLE del usuario : no hay un api pero reutilizamos el put la funcion actualizar de arriba
+    return this.http.put(
+      `${base_url}/usuarios/${usuario!.uid}`,
+      usuario,
+      this.headers
     );
   }
 }

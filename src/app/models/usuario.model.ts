@@ -14,14 +14,19 @@ export class Usuario {
   ) {}
 
   get imagenUrl() {
+    // hay imagenes que tiene undefined : vacio
+    // si esto no existe , es para protegernos de las url que no tienen nada
+    if (!this.img) {
+      return `${base_url}/upload/usuarios/no-image`;
+    }
     //al ingresar con google tomara la imagen con https
     // console.log(this.img);
-    if (this.img?.includes('https')) {
+    else if (this.img?.includes('https')) {
       return this.img;
     }
 
     //   /upload/usuarios/no-image
-    if (this.img) {
+    else if (this.img) {
       return `${base_url}/upload/usuarios/${this.img}`;
     } else {
       return `${base_url}/upload/usuarios/no-image`;

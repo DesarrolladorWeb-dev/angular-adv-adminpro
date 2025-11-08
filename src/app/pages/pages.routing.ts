@@ -1,5 +1,4 @@
-import { Routes, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { Routes } from '@angular/router';
 
 import { authGuard } from '../guard/auth.guard';
 
@@ -10,9 +9,10 @@ import { ProgressComponent } from './progress/progress.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
-
-import { UsuarioService } from '../services/usuario.service';
 import { PerfilComponent } from './perfil/perfil.component';
+
+// Mantenimientos
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 
 // const authGuard = new AuthGuard();
 
@@ -53,6 +53,13 @@ export const pagesRoutes: Routes = [
         path: 'perfil',
         component: PerfilComponent,
         data: { titulo: 'Perfil de Usuario' },
+      },
+
+      // Mantenimientos
+      {
+        path: 'usuarios',
+        component: UsuariosComponent,
+        data: { titulo: 'Usuarios de aplicacion' },
       },
     ],
   },

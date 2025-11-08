@@ -26,6 +26,7 @@ export class LoginComponent {
   public formSubmitted = false;
 
   // como quiero que lusca mi formulario 'test100@gmail.com'
+  // el test1 es del 1 al 4  - como todos los test
   public loginForm = this.fb.group({
     email: [
       localStorage.getItem('email') || '',
@@ -58,7 +59,12 @@ export class LoginComponent {
       (correcto) => this.router.navigateByUrl('/'),
 
       (err) => {
-        console.log(err);
+        Swal.fire({
+          title: 'Error!',
+          text: err.error.msg,
+          icon: 'error',
+          confirmButtonText: 'Cool',
+        });
       }
     );
   }
