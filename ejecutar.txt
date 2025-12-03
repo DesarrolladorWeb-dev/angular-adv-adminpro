@@ -8,3 +8,6 @@ nota se creo a mano la carpeta environments y sus archivos
 
 
 ng g c pages/perfil --skip-tests -s
+
+
+D:\ACCION\ANGULAR\ANGULAR AVANZADO\capitulo1\adminpro>ng g c pages/mantenimientos/medico --flat -s

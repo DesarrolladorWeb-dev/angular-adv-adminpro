@@ -13,6 +13,11 @@ import { PerfilComponent } from './perfil/perfil.component';
 
 // Mantenimientos
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
+import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
+import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
+import { MedicoComponent } from './mantenimientos/medicos/medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
+import { adminGuard } from '../guard/admin.guard';
 
 // const authGuard = new AuthGuard();
 
@@ -43,6 +48,11 @@ export const pagesRoutes: Routes = [
         data: { titulo: 'Ajuste de Cuenta' },
       },
       {
+        path: 'buscar/:termino',
+        component: BusquedaComponent,
+        data: { titulo: 'Busquedas' },
+      },
+      {
         path: 'promesas',
         component: PromesasComponent,
         data: { titulo: 'Promesas' },
@@ -57,7 +67,24 @@ export const pagesRoutes: Routes = [
 
       // Mantenimientos
       {
+        path: 'hospitales',
+        component: HospitalesComponent,
+        data: { titulo: 'Hopitales de aplicacion' },
+      },
+      {
+        path: 'medicos',
+        component: MedicosComponent,
+        data: { titulo: 'Medicos de aplicacion' },
+      },
+      {
+        path: 'medico/:id',
+        component: MedicoComponent,
+        data: { titulo: 'Medicos de aplicacion' },
+      },
+      // Rutas de Admin
+      {
         path: 'usuarios',
+        canActivate: [adminGuard],
         component: UsuariosComponent,
         data: { titulo: 'Usuarios de aplicacion' },
       },

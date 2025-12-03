@@ -32,7 +32,7 @@ export class LoginComponent {
       localStorage.getItem('email') || '',
       [Validators.required, Validators.email],
     ],
-    password: ['123456', Validators.required],
+    password: ['1234', Validators.required],
     remember: [true],
   });
   constructor(

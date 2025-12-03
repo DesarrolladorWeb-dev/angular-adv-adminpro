@@ -19,13 +19,18 @@ const base_url = environment.base_url;
 export class UsuarioService {
   public recarga: any;
   //TODO : es de tipo Usuario no es un Objeto usuario
-  public usuario: Usuario | undefined;
+  public usuario!: Usuario;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   get token(): string {
     return localStorage.getItem('token') || '';
   }
+
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' | undefined {
+    return this.usuario.role;
+  }
+
   get uid(): string | undefined {
     return this.usuario?.uid || '';
   }
@@ -37,11 +42,20 @@ export class UsuarioService {
       },
     };
   }
+
+  guardarLocalStorage(token: string, menu: any) {
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
+  }
+
   logout() {
     localStorage.removeItem('token');
     // ngZone : esto es lo unico que quiero que se ejecute
     // this.ngZone.run(() => {
     // this.signOut();
+
+    //TODO Borrar menu
+    localStorage.removeItem('menu');
 
     (window as any).signOut = () => {
       this.router.navigateByUrl('/login');
@@ -71,8 +85,7 @@ export class UsuarioService {
           this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
 
           // renovar el token
-          localStorage.setItem('token', resp.token);
-
+          this.guardarLocalStorage(resp.token, resp.menu);
           return true;
         }),
         // map es para pasar por los elementos
@@ -83,7 +96,11 @@ export class UsuarioService {
   }
 
   crearUsuario(formData: RegisterForm) {
-    return this.http.post(`${base_url}/usuarios`, formData);
+    return this.http.post(`${base_url}/usuarios`, formData).pipe(
+      tap((resp: any) => {
+        this.guardarLocalStorage(resp.token, resp.menu);
+      })
+    );
   }
 
   actualizarPerfil(data: {
@@ -114,7 +131,8 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login`, formData).pipe(
       map((resp: any) => {
         // localStorage.setItem('id', resp.id);
-        localStorage.setItem('token', resp.token);
+        this.guardarLocalStorage(resp.token, resp.menu);
+
         // porque almacena string
         // localStorage.setItem('usuario', JSON.stringify(resp.usuario));
         return true;
@@ -124,7 +142,7 @@ export class UsuarioService {
   loginGoogle(token: string) {
     return this.http.post(`${base_url}/login/google`, { token }).pipe(
       tap((resp: any) => {
-        localStorage.setItem('token', resp.token);
+        this.guardarLocalStorage(resp.token, resp.menu);
       })
     );
   }

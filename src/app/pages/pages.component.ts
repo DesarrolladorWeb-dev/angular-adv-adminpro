@@ -5,6 +5,7 @@ import { SidebarComponent } from '../shared/sidebar/sidebar.component';
 import { RouterOutlet } from '@angular/router';
 import { SettingsService } from '../services/settings.service';
 import { ModalImagenComponent } from '../components/modal-imagen/modal-imagen.component';
+import { SidebarService } from '../services/sidebar.service';
 
 // lo declaro porque se que esta funcion existe y esta  de manera global
 // src\assets\js\custom.js  , lo cree porque no se volvia a cargar el js cuando daba la segunda renderizacion al dar login
@@ -28,10 +29,16 @@ import { ModalImagenComponent } from '../components/modal-imagen/modal-imagen.co
 })
 export class PagesComponent implements OnInit {
   // injecto mi servicio
-  constructor(private settingsService: SettingsService) {}
+  constructor(
+    private settingsService: SettingsService,
+    public siderbarService: SidebarService
+  ) {}
 
   ngOnInit(): void {
     // funciona porque la funcion existe de manera global (es la que esta importada en el index al final)
     // customInitFunctions();
+
+    this.siderbarService.cargarMenu();
+    // console.log(this.siderbarService.menu);
   }
 }

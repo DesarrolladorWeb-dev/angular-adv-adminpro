@@ -13,15 +13,22 @@ import { Usuario } from '../../models/usuario.model';
   styles: ``,
 })
 export class SidebarComponent {
-  menuItems: any[];
+  menuItems: any[] | any;
   public usuario?: Usuario;
 
   constructor(
-    private sidebarService: SidebarService,
+    public sidebarService: SidebarService,
     private usuarioService: UsuarioService
   ) {
-    this.usuario = usuarioService.usuario;
+    // this.menuItems = sidebarService.menu;
+    // console.log(sidebarService);
+    // this.usuario = usuarioService.usuario;
+  }
 
-    this.menuItems = sidebarService.menu;
+  ngOnInit() {
+    // Esto asegura que el menú esté cargado
+    this.menuItems = this.sidebarService.menu;
+    this.usuario = this.usuarioService.usuario;
+    // console.log(this.menuItems);
   }
 }
