@@ -8,6 +8,7 @@ import { Grafica1Component } from './pages/grafica1/grafica1.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 // Las paginas que tengo
+//!!!!!!NO USAR ESTO 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
